@@ -2,7 +2,6 @@ type Track {
   id: ID!
   title: String!
   bands: [Band]
-  artists: [Artist]
   duration: Int
   released: Int
   genres: [Genre]

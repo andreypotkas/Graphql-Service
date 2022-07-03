@@ -1,0 +1,26 @@
+type User {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  password: String!
+  email: String!
+}
+
+type jwt {
+  jwt: String!
+}
+
+type Query {
+  userById(id: ID!): User
+  jwt(password: String!, email: String!): jwt
+  signup(
+    firstName: String!
+    lastName: String!
+    password: String!
+    email: String!
+  ): User
+}
+
+type Mutation {
+  getJWT(password: String!, email: String!): jwt
+}
