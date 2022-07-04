@@ -7,6 +7,8 @@ import 'dotenv/config';
 import { userAPI } from './modules/users/api/user.api.js';
 import { resolvers } from './resolvers.js';
 import { genreAPI } from './modules/genres/api/genre.api.js';
+import { bandAPI } from './modules/bands/api/band.api.js';
+import { artistAPI } from './modules/artists/api/artist.api.js';
 
 async function startApolloServer(typeDefs, resolvers) {
   const app = express();
@@ -20,6 +22,8 @@ async function startApolloServer(typeDefs, resolvers) {
       return {
         userAPI: new userAPI(),
         genreAPI: new genreAPI(),
+        bandAPI: new bandAPI(),
+        artistAPI: new artistAPI(),
       };
     },
     context: ({ req }) => ({

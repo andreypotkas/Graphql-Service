@@ -1,4 +1,11 @@
+import { artistResolvers } from './modules/artists/resolvers/resolvers.js';
+import { bandResolvers } from './modules/bands/resolvers/resolvers.js';
 import { genreResolvers } from './modules/genres/resolvers/resolvers.js';
 import { userResolvers } from './modules/users/resolvers/resolvers.js';
 
-export const resolvers = [userResolvers, genreResolvers];
+export const resolvers = [
+  userResolvers,
+  genreResolvers,
+  bandResolvers,
+  artistResolvers,
+];
