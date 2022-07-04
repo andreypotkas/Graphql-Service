@@ -6,6 +6,7 @@ import { typeDefs } from './typeDefs.js';
 import 'dotenv/config';
 import { userAPI } from './modules/users/api/user.api.js';
 import { resolvers } from './resolvers.js';
+import { genreAPI } from './modules/genres/api/genre.api.js';
 
 async function startApolloServer(typeDefs, resolvers) {
   const app = express();
@@ -18,8 +19,16 @@ async function startApolloServer(typeDefs, resolvers) {
     dataSources: () => {
       return {
         userAPI: new userAPI(),
+        genreAPI: new genreAPI(),
       };
     },
+    context: ({ req }) => ({
+      config: {
+        headers: {
+          Authorization: req.headers.authorization || '',
+        },
+      },
+    }),
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
   });
 

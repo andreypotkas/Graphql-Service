@@ -7,7 +7,7 @@ export class userAPI extends RESTDataSource {
     this.baseURL = process.env.users_url;
   }
 
-  async signup(firstName, lastName, email, password, id) {
+  async createUser(firstName, lastName, email, password, id) {
     const data = await this.post(`/register`, {
       firstName,
       lastName,
@@ -16,53 +16,31 @@ export class userAPI extends RESTDataSource {
       id,
     });
     data.id = data._id;
-    console.log(`getJWT`, data);
+    console.log(`New User was created`, data);
+
+    return data;
+  }
+
+  async verify() {
+    const data = await this.post(`/verify`, {}, this.context.config);
+    data.id = data._id;
+    console.log(``, data);
 
     return data;
   }
 
   async getJWT(email, password) {
     const data = await this.post(`/login`, { email, password });
-    console.log(`getJWT`, data);
+    console.log(`JWT`, data);
 
     return data;
   }
-  // GET
+
   async getUserById(id) {
     const data = await this.get(`/${id}`);
-    console.log(`getJWT`, data);
+    data.id = data._id;
+    console.log(`User ${id}`, data);
 
     return data;
-  }
-
-  // POST
-  async postMovie(movie) {
-    return this.post(
-      `movies`, // path
-      movie // request body
-    );
-  }
-
-  // PUT
-  async newMovie(movie) {
-    return this.put(
-      `movies`, // path
-      movie // request body
-    );
-  }
-
-  // PATCH
-  async updateMovie(movie) {
-    return this.patch(
-      `movies`, // path
-      { id: movie.id, movie } // request body
-    );
-  }
-
-  // DELETE
-  async deleteMovie(movie) {
-    return this.delete(
-      `movies/${encodeURIComponent(movie.id)}` // path
-    );
   }
 }

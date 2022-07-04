@@ -6,12 +6,18 @@ export const userResolvers = {
     userById: async (_, { id }, { dataSources }) => {
       return await dataSources.userAPI.getUserById(id);
     },
-    signup: async (
+
+    verify: async (_, {}, { dataSources }) => {
+      return await dataSources.userAPI.verify();
+    },
+  },
+  Mutation: {
+    createUser: async (
       _,
       { firstName, lastName, email, password },
       { dataSources }
     ) => {
-      return await dataSources.userAPI.signup(
+      return await dataSources.userAPI.createUser(
         firstName,
         lastName,
         email,
