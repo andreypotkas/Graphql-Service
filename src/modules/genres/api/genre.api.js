@@ -20,7 +20,7 @@ export class genreAPI extends RESTDataSource {
   async getGenreById(id) {
     const data = await this.get(`/${id}`);
     data.id = data._id;
-    console.log(`Genre ${id}`, data);
+    /* console.log(`Genre ${id}`, data); */
 
     return data;
   }

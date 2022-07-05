@@ -7,6 +7,7 @@ export const genreResolvers = {
       return await dataSources.genreAPI.getGenreById(id);
     },
   },
+
   Mutation: {
     createGenre: async (
       _,

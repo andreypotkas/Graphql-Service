@@ -1,24 +1,40 @@
 export const artistResolvers = {
   Query: {
-    bands: async (_, __, { dataSources }) => {
-      return await dataSources.ArtistAPI.getAllArtists();
+    artists: async (_, __, { dataSources }) => {
+      return await dataSources.artistAPI.getAllArtists();
     },
-    band: async (_, { id }, { dataSources }) => {
-      return await dataSources.bandAPI.getArtistById(id);
+    artist: async (_, { id }, { dataSources }) => {
+      return await dataSources.artistAPI.getArtistById(id);
+    },
+  },
+  Artist: {
+    bands(parent) {
+      return parent.bands;
     },
   },
   Mutation: {
-    createArtist: async (_, createArtistInput, { dataSources }) => {
-      return await dataSourcArtist.createArtist(
-        createArtistInput.createArtistInput
-      );
+    createArtist: async (_, input, { dataSources }) => {
+      const data = input.createArtistInput;
+
+      // Get bands if exists bandsIds
+      if (data.bandsIds) {
+        await dataSources.artistAPI.getBandsByIds(dataSources, data);
+      }
+
+      return await dataSources.artistAPI.createArtist(data);
     },
     updateArtist: async (_, { id, updateArtistInput }, { dataSources }) => {
-      return await dataSources.artistAPI.updateArtist(id, updateArtistInput);
+      const data = updateArtistInput;
+
+      // Get bands if exists bandsIds
+      if (data.bandsIds) {
+        await dataSources.artistAPI.getBandsByIds(dataSources, data);
+      }
+      return await dataSources.artistAPI.updateArtist(id, data);
     },
 
     deleteArtist: async (_, { id }, { dataSources }) => {
-      return await dataSources.artistAPI.deleteartist(id);
+      return await dataSources.artistAPI.deleteArtist(id);
     },
   },
 };

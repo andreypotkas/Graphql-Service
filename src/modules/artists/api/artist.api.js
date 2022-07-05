@@ -28,6 +28,7 @@ export class artistAPI extends RESTDataSource {
   async createArtist(createArtistInput) {
     const data = await this.post('', createArtistInput, this.context.config);
     data.id = data._id;
+
     console.log(`Artist ${data.id} was created`, data);
 
     return data;
@@ -40,6 +41,7 @@ export class artistAPI extends RESTDataSource {
       this.context.config
     );
     data.id = data._id;
+
     console.log(`Artist ${id} was updated`, data);
     return data;
   }
@@ -48,5 +50,12 @@ export class artistAPI extends RESTDataSource {
     const data = await this.delete(`/${id}`, { id }, this.context.config);
     console.log(`Artist ${id} was deleted`, data);
     return data;
+  }
+
+  async getBandsByIds(dataSources, data) {
+    const bands = data.bandsIds.map((item) => {
+      return dataSources.bandAPI.getBandById(item);
+    });
+    data.bands = await Promise.all(bands);
   }
 }
