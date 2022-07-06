@@ -8,6 +8,9 @@ export const artistResolvers = {
     },
   },
   Artist: {
+    id(parent) {
+      return parent._id;
+    },
     bands(parent) {
       return parent.bands;
     },
@@ -16,21 +19,28 @@ export const artistResolvers = {
     createArtist: async (_, input, { dataSources }) => {
       const data = input.createArtistInput;
 
-      // Get bands if exists bandsIds
-      if (data.bandsIds) {
-        await dataSources.artistAPI.getBandsByIds(dataSources, data);
-      }
+      const bands = async () => {
+        const bandsData = data.bandsIds.map((item) =>
+          dataSources.bandAPI.getBandById(item)
+        );
+        return await Promise.all(bandsData);
+      };
+
+      data.bands = await bands();
 
       return await dataSources.artistAPI.createArtist(data);
     },
-    updateArtist: async (_, { id, updateArtistInput }, { dataSources }) => {
-      const data = updateArtistInput;
 
-      // Get bands if exists bandsIds
-      if (data.bandsIds) {
-        await dataSources.artistAPI.getBandsByIds(dataSources, data);
-      }
-      return await dataSources.artistAPI.updateArtist(id, data);
+    updateArtist: async (_, input, { dataSources }) => {
+      const bands = async () => {
+        const bandsData = input.updateArtistInput.bandsIds.map((item) =>
+          dataSources.bandAPI.getBandById(item)
+        );
+        return await Promise.all(bandsData);
+      };
+
+      input.updateArtistInput.bands = await bands();
+      return await dataSources.artistAPI.updateArtist(input);
     },
 
     deleteArtist: async (_, { id }, { dataSources }) => {
