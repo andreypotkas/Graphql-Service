@@ -8,12 +8,28 @@ export const trackResolvers = {
     },
   },
   Track: {
+    id(parent) {
+      return parent._id;
+    },
     bands(parent, args, context, info) {
-      console.log(parent);
-      return context.dataSources.trackAPI.getBandsByIds(parent, context);
+      const bands = async () => {
+        const bandsData = parent.bandsIds.map((item) =>
+          context.dataSources.bandAPI.getBandById(item)
+        );
+        return await Promise.all(bandsData);
+      };
+
+      return bands();
     },
     genres(parent, args, context) {
-      return context.dataSources.trackAPI.getGenresByIds(parent, context);
+      const genres = async () => {
+        const genresData = parent.genresIds.map((item) =>
+          context.dataSources.genreAPI.getGenreById(item)
+        );
+        return await Promise.all(genresData);
+      };
+
+      return genres();
     },
   },
   Mutation: {
@@ -22,10 +38,8 @@ export const trackResolvers = {
 
       return await dataSources.trackAPI.createTrack(data);
     },
-    updateTrack: async (_, { id, updateTrackInput }, { dataSources }) => {
-      const data = updateTrackInput;
-      console.log(data);
-      return await dataSources.trackAPI.updateTrack(id, data);
+    updateTrack: async (_, input, { dataSources }) => {
+      return await dataSources.trackAPI.updateTrack(input);
     },
 
     deleteTrack: async (_, { id }, { dataSources }) => {
