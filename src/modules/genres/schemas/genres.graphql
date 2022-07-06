@@ -14,19 +14,22 @@ type Delete {
   acknowledged: Boolean
   deletedCount: Int
 }
+
+input CreateGenreInput {
+  name: String!
+  description: String!
+  country: String!
+  year: Int!
+}
+input UpdateGenreInput {
+  name: String!
+  description: String!
+  country: String!
+  year: Int!
+}
+
 type Mutation {
-  createGenre(
-    name: String!
-    description: String!
-    country: String!
-    year: Int!
-  ): Genre
-  updateGenre(
-    id: ID!
-    name: String!
-    description: String!
-    country: String!
-    year: Int!
-  ): Genre
+  createGenre(createGenreInput: CreateGenreInput!): Genre
+  updateGenre(id: ID!, updateGenreInput: UpdateGenreInput!): Genre
   deleteGenre(id: ID!): Delete
 }

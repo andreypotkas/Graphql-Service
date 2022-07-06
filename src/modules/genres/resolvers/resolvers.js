@@ -7,32 +7,17 @@ export const genreResolvers = {
       return await dataSources.genreAPI.getGenreById(id);
     },
   },
-
-  Mutation: {
-    createGenre: async (
-      _,
-      { name, description, country, year },
-      { dataSources }
-    ) => {
-      return await dataSources.genreAPI.createGenre(
-        name,
-        description,
-        country,
-        year
-      );
+  Genre: {
+    id(parent) {
+      return parent._id;
     },
-    updateGenre: async (
-      _,
-      { id, name, description, country, year },
-      { dataSources }
-    ) => {
-      return await dataSources.genreAPI.updateGenre(
-        id,
-        name,
-        description,
-        country,
-        year
-      );
+  },
+  Mutation: {
+    createGenre: async (_, data, { dataSources }) => {
+      return await dataSources.genreAPI.createGenre(data.createGenreInput);
+    },
+    updateGenre: async (_, data, { dataSources }) => {
+      return await dataSources.genreAPI.updateGenre(data);
     },
 
     deleteGenre: async (_, { id }, { dataSources }) => {

@@ -10,47 +10,34 @@ export class genreAPI extends RESTDataSource {
   async getAllGenres() {
     const data = await this.get('');
 
-    data.items.forEach((item) => {
-      item.id = item._id;
-    });
-    console.log(`All genres`, data);
     return data.items;
   }
 
   async getGenreById(id) {
     const data = await this.get(`/${id}`);
-    data.id = data._id;
-    /* console.log(`Genre ${id}`, data); */
 
     return data;
   }
 
-  async createGenre(name, description, country, year) {
-    const data = await this.post(
-      '',
-      { name, description, country, year },
-      this.context.config
-    );
-    data.id = data._id;
-    console.log(`Genre ${data.id} was created`, data);
+  async createGenre(genre) {
+    const data = await this.post('', genre, this.context.config);
 
     return data;
   }
 
-  async updateGenre(id, name, description, country, year) {
+  async updateGenre(genre) {
     const data = await this.put(
-      `/${id}`,
-      { id, name, description, country, year },
+      `/${genre.id}`,
+      genre.updateGenreInput,
       this.context.config
     );
-    data.id = data._id;
-    console.log(`Genre ${id} was updated`, data);
+
     return data;
   }
 
   async deleteGenre(id) {
     const data = await this.delete(`/${id}`, { id }, this.context.config);
-    console.log(`Genre ${id} was deleted`, data);
+
     return data;
   }
 }
