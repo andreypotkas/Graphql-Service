@@ -8,32 +8,26 @@ export const bandResolvers = {
     },
   },
   Band: {
+    id(parent) {
+      return parent._id;
+    },
     genres(parent, args, context) {
-      return context.dataSources.bandAPI.getGenresByIds(parent, context);
+      const genres = async () => {
+        const genresData = parent.genresIds.map((item) =>
+          context.dataSources.genreAPI.getGenreById(item)
+        );
+        return await Promise.all(genresData);
+      };
+
+      return genres();
     },
   },
   Mutation: {
-    createBand: async (_, createBandInput, { dataSources }) => {
-      /* const genres = await Promise.allSettled(
-        createBandInput.createBandInput.genresIds.map((item) => {
-          return dataSources.genreAPI.getGenreById(item);
-        })
-      );
-      createBandInput.createBandInput.genres = genres.map((item) => item.value); */
-      return await dataSources.bandAPI.createBand(
-        createBandInput.createBandInput
-      );
+    createBand: async (_, data, { dataSources }) => {
+      return await dataSources.bandAPI.createBand(data.createBandInput);
     },
-    updateBand: async (_, { id, updateBandInput }, { dataSources }) => {
-      const genres = await Promise.allSettled(
-        updateBandInput.genresIds.map((item) => {
-          return dataSources.genreAPI.getGenreById(item);
-        })
-      );
-
-      updateBandInput.genres = genres.map((item) => item.value);
-
-      return await dataSources.bandAPI.updateBand(id, updateBandInput);
+    updateBand: async (_, data, { dataSources }) => {
+      return await dataSources.bandAPI.updateBand(data);
     },
 
     deleteBand: async (_, { id }, { dataSources }) => {

@@ -12,46 +12,34 @@ export class bandAPI extends RESTDataSource {
   async getAllBands() {
     const data = await this.get('');
 
-    data.items.forEach((item) => {
-      item.id = item._id;
-    });
     return data.items;
   }
 
   async getBandById(id) {
     const data = await this.get(`/${id}`);
-    data.id = data._id;
-    return data;
-  }
-
-  async createBand(createBandInput) {
-    const data = await this.post('', createBandInput, this.context.config);
-    data.id = data._id;
-    data.genres = createBandInput.genres;
-    console.log(`Band ${data.id} was created`, data);
 
     return data;
   }
 
-  async updateBand(id, updateBandInput) {
-    const data = await this.put(`/${id}`, updateBandInput, this.context.config);
+  async createBand(band) {
+    const data = await this.post('', band, this.context.config);
 
-    data.id = data._id;
-    data.genres = updateBandInput.genres;
-    console.log(`Band ${id} was updated`, data);
+    return data;
+  }
+
+  async updateBand(band) {
+    const data = await this.put(
+      `/${band.id}`,
+      band.updateBandInput,
+      this.context.config
+    );
+
     return data;
   }
 
   async deleteBand(id) {
     const data = await this.delete(`/${id}`, { id }, this.context.config);
-    console.log(`Band ${id} was deleted`, data);
-    return data;
-  }
 
-  async getGenresByIds(parent, context) {
-    const genres = parent.genresIds.map((item) =>
-      context.dataSources.genreAPI.getGenreById(item)
-    );
-    return await Promise.all(genres);
+    return data;
   }
 }
