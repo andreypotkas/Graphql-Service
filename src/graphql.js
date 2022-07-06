@@ -9,6 +9,7 @@ import { resolvers } from './resolvers.js';
 import { genreAPI } from './modules/genres/api/genre.api.js';
 import { bandAPI } from './modules/bands/api/band.api.js';
 import { artistAPI } from './modules/artists/api/artist.api.js';
+import { trackAPI } from './modules/tracks/api/tracks.api.js';
 
 async function startApolloServer(typeDefs, resolvers) {
   const app = express();
@@ -24,6 +25,7 @@ async function startApolloServer(typeDefs, resolvers) {
         genreAPI: new genreAPI(),
         bandAPI: new bandAPI(),
         artistAPI: new artistAPI(),
+        trackAPI: new trackAPI(),
       };
     },
     context: ({ req }) => ({

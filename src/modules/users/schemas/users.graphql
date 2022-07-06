@@ -22,11 +22,13 @@ type Query {
   verify: Verify
 }
 
+input CreateUserInput {
+  firstName: String!
+  lastName: String!
+  password: String!
+  email: String!
+}
+
 type Mutation {
-  createUser(
-    firstName: String!
-    lastName: String!
-    password: String!
-    email: String!
-  ): User
+  createUser(createUserInput: CreateUserInput!): User!
 }

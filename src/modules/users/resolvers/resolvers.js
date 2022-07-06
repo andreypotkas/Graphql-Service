@@ -11,18 +11,14 @@ export const userResolvers = {
       return await dataSources.userAPI.verify();
     },
   },
+  User: {
+    id(parent) {
+      return parent._id;
+    },
+  },
   Mutation: {
-    createUser: async (
-      _,
-      { firstName, lastName, email, password },
-      { dataSources }
-    ) => {
-      return await dataSources.userAPI.createUser(
-        firstName,
-        lastName,
-        email,
-        password
-      );
+    createUser: async (_, data, { dataSources }) => {
+      return await dataSources.userAPI.createUser(data.createUserInput);
     },
   },
 };

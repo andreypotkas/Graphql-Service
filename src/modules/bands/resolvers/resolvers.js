@@ -14,12 +14,12 @@ export const bandResolvers = {
   },
   Mutation: {
     createBand: async (_, createBandInput, { dataSources }) => {
-      const genres = await Promise.allSettled(
+      /* const genres = await Promise.allSettled(
         createBandInput.createBandInput.genresIds.map((item) => {
           return dataSources.genreAPI.getGenreById(item);
         })
       );
-      createBandInput.createBandInput.genres = genres.map((item) => item.value);
+      createBandInput.createBandInput.genres = genres.map((item) => item.value); */
       return await dataSources.bandAPI.createBand(
         createBandInput.createBandInput
       );
