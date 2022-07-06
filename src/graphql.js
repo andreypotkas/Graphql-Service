@@ -10,6 +10,7 @@ import { genreAPI } from './modules/genres/api/genre.api.js';
 import { bandAPI } from './modules/bands/api/band.api.js';
 import { artistAPI } from './modules/artists/api/artist.api.js';
 import { trackAPI } from './modules/tracks/api/tracks.api.js';
+import { albumAPI } from './modules/albums/api/albums.api.js';
 
 async function startApolloServer(typeDefs, resolvers) {
   const app = express();
@@ -26,6 +27,7 @@ async function startApolloServer(typeDefs, resolvers) {
         bandAPI: new bandAPI(),
         artistAPI: new artistAPI(),
         trackAPI: new trackAPI(),
+        albumAPI: new albumAPI(),
       };
     },
     context: ({ req }) => ({

@@ -1,3 +1,4 @@
+import { albumResolvers } from './modules/albums/resolvers.js/resolvers.js';
 import { artistResolvers } from './modules/artists/resolvers/resolvers.js';
 import { bandResolvers } from './modules/bands/resolvers/resolvers.js';
 import { genreResolvers } from './modules/genres/resolvers/resolvers.js';
@@ -10,4 +11,5 @@ export const resolvers = [
   bandResolvers,
   artistResolvers,
   trackResolvers,
+  albumResolvers,
 ];
