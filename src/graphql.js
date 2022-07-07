@@ -11,6 +11,7 @@ import { bandAPI } from './modules/bands/api/band.api.js';
 import { artistAPI } from './modules/artists/api/artist.api.js';
 import { trackAPI } from './modules/tracks/api/tracks.api.js';
 import { albumAPI } from './modules/albums/api/albums.api.js';
+import { favouriteAPI } from './modules/favorites/api/favorites.api.js';
 
 async function startApolloServer(typeDefs, resolvers) {
   const app = express();
@@ -28,6 +29,7 @@ async function startApolloServer(typeDefs, resolvers) {
         artistAPI: new artistAPI(),
         trackAPI: new trackAPI(),
         albumAPI: new albumAPI(),
+        favouriteAPI: new favouriteAPI(),
       };
     },
     context: ({ req }) => ({
