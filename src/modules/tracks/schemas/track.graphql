@@ -13,7 +13,7 @@ type Query {
 }
 
 input CreateTrackInput {
-  title: String
+  title: String!
   albumId: String
   bandsIds: [ID]
   duration: Int

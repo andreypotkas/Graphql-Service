@@ -7,10 +7,10 @@ export class trackAPI extends RESTDataSource {
     this.baseURL = process.env.tracks_url;
   }
 
-  async getAllTracks() {
+  async getAllTracks(args) {
     const data = await this.get('');
 
-    return data.items;
+    return data.items.slice(0, args.limit);
   }
 
   async getTrackById(id) {

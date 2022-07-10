@@ -7,10 +7,10 @@ export class artistAPI extends RESTDataSource {
     this.baseURL = process.env.artists_url;
   }
 
-  async getAllArtists() {
+  async getAllArtists(args) {
     const data = await this.get('');
 
-    return data.items;
+    return data.items.slice(0, args.limit);
   }
 
   async getArtistById(id) {

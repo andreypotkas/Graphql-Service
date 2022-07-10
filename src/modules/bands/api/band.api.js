@@ -9,10 +9,10 @@ export class bandAPI extends RESTDataSource {
     this.genreService = new genreAPI();
   }
 
-  async getAllBands() {
+  async getAllBands(args) {
     const data = await this.get('');
 
-    return data.items;
+    return data.items.slice(0, args.limit);
   }
 
   async getBandById(id) {

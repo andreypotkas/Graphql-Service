@@ -7,10 +7,10 @@ export class genreAPI extends RESTDataSource {
     this.baseURL = process.env.genres_url;
   }
 
-  async getAllGenres() {
+  async getAllGenres(args) {
     const data = await this.get('');
 
-    return data.items;
+    return data.items.slice(0, args.limit);
   }
 
   async getGenreById(id) {

@@ -1,7 +1,7 @@
 export const albumResolvers = {
   Query: {
-    albums: async (_, __, { dataSources }) => {
-      return await dataSources.albumAPI.getAllAlbums();
+    albums: async (_, args, { dataSources }) => {
+      return await dataSources.albumAPI.getAllAlbums(args);
     },
     album: async (_, { id }, { dataSources }) => {
       return await dataSources.albumAPI.getAlbumById(id);

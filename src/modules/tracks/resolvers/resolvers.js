@@ -1,7 +1,7 @@
 export const trackResolvers = {
   Query: {
-    tracks: async (_, __, { dataSources }) => {
-      return await dataSources.trackAPI.getAllTracks();
+    tracks: async (_, args, { dataSources }) => {
+      return await dataSources.trackAPI.getAllTracks(args);
     },
     track: async (_, { id }, { dataSources }) => {
       return await dataSources.trackAPI.getTrackById(id);

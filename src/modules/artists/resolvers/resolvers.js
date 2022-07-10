@@ -1,7 +1,7 @@
 export const artistResolvers = {
   Query: {
-    artists: async (_, __, { dataSources }) => {
-      return await dataSources.artistAPI.getAllArtists();
+    artists: async (_, args, { dataSources }) => {
+      return await dataSources.artistAPI.getAllArtists(args);
     },
     artist: async (_, { id }, { dataSources }) => {
       return await dataSources.artistAPI.getArtistById(id);
@@ -18,15 +18,16 @@ export const artistResolvers = {
   Mutation: {
     createArtist: async (_, input, { dataSources }) => {
       const data = input.createArtistInput;
+      if (data.bandsIds) {
+        const bands = async () => {
+          const bandsData = data.bandsIds.map((item) =>
+            dataSources.bandAPI.getBandById(item)
+          );
+          return await Promise.all(bandsData);
+        };
 
-      const bands = async () => {
-        const bandsData = data.bandsIds.map((item) =>
-          dataSources.bandAPI.getBandById(item)
-        );
-        return await Promise.all(bandsData);
-      };
-
-      data.bands = await bands();
+        data.bands = await bands();
+      }
 
       return await dataSources.artistAPI.createArtist(data);
     },

@@ -1,7 +1,7 @@
 export const genreResolvers = {
   Query: {
-    genres: async (_, __, { dataSources }) => {
-      return await dataSources.genreAPI.getAllGenres();
+    genres: async (_, data, { dataSources }) => {
+      return await dataSources.genreAPI.getAllGenres(data);
     },
     genre: async (_, { id }, { dataSources }) => {
       return await dataSources.genreAPI.getGenreById(id);

@@ -7,10 +7,10 @@ export class albumAPI extends RESTDataSource {
     this.baseURL = process.env.albums_url;
   }
 
-  async getAllAlbums() {
+  async getAllAlbums(args) {
     const data = await this.get('');
 
-    return data.items;
+    return data.items.slice(0, args.limit);
   }
 
   async getAlbumById(id) {

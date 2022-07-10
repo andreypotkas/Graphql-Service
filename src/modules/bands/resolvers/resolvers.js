@@ -1,7 +1,7 @@
 export const bandResolvers = {
   Query: {
-    bands: async (_, __, { dataSources }) => {
-      return await dataSources.bandAPI.getAllBands();
+    bands: async (_, args, { dataSources }) => {
+      return await dataSources.bandAPI.getAllBands(args);
     },
     band: async (_, { id }, { dataSources }) => {
       return await dataSources.bandAPI.getBandById(id);
