@@ -1,0 +1,33 @@
+{
+  "name": "graphql-service",
+  "version": "1.0.0",
+  "description": "Graphql-service node.js ",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/graphql.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andreypotkas/Graphql-Service.git"
+  },
+  "author": "andreypotkas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andreypotkas/Graphql-Service/issues"
+  },
+  "homepage": "https://github.com/andreypotkas/Graphql-Service#readme",
+  "dependencies": {
+    "@graphql-tools/graphql-file-loader": "^7.4.0",
+    "@graphql-tools/load": "^7.7.0",
+    "@graphql-tools/schema": "^8.5.0",
+    "apollo-datasource": "^3.3.2",
+    "apollo-datasource-rest": "^3.6.1",
+    "apollo-server-core": "^3.9.0",
+    "apollo-server-express": "^3.9.0",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "graphql": "^16.5.0"
+  }
+}

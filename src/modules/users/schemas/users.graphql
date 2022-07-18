@@ -1,0 +1,34 @@
+type User {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  password: String!
+  email: String!
+}
+type Verify {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  email: String!
+  iat: Int
+}
+type jwt {
+  jwt: String!
+}
+
+type Query {
+  userById(id: ID!): User
+  jwt(password: String!, email: String!): jwt
+  verify: Verify
+}
+
+input CreateUserInput {
+  firstName: String!
+  lastName: String!
+  password: String!
+  email: String!
+}
+
+type Mutation {
+  createUser(createUserInput: CreateUserInput!): User!
+}
